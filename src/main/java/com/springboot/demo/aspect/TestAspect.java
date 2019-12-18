@@ -93,6 +93,9 @@ public class TestAspect {
 
     /**
      * 后置异常通知
+     *
+     * 注意：该方法与 环绕通知 是不兼容的 即： @AfterThrowing 和  @Around只能会进入一个
+     *
      *  定义一个名字，该名字用于匹配通知实现方法的一个参数名，当目标方法抛出异常返回后，将把目标方法抛出的异常传给通知方法；
      *  throwing:限定了只有目标方法抛出的异常与通知方法相应参数异常类型时才能执行后置异常通知，否则不执行，
      *           对于throwing对应的通知方法参数为Throwable类型将匹配任何异常。
@@ -114,17 +117,17 @@ public class TestAspect {
      *   环绕通知非常强大，可以决定目标方法是否执行，什么时候执行，执行时是否需要替换方法参数，执行完毕是否需要替换返回值。
      *   环绕通知第一个参数必须是org.aspectj.lang.ProceedingJoinPoint类型
      */
-    @Around(value = "logger()")
-    public Object tetsAround(ProceedingJoinPoint proceedingJoinPoint) {
-        logger.info("环绕通知的目标方法名: " +proceedingJoinPoint.getSignature().getName());
-        try {
-            Object proceed = proceedingJoinPoint.proceed();
-            return proceed;
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
-        return null;
-    }
+//    @Around(value = "logger()")
+//    public Object tetsAround(ProceedingJoinPoint proceedingJoinPoint) {
+//        logger.info("环绕通知的目标方法名: " +proceedingJoinPoint.getSignature().getName());
+//        try {
+//            Object proceed = proceedingJoinPoint.proceed();
+//            return proceed;
+//        } catch (Throwable throwable) {
+//            throwable.printStackTrace();
+//        }
+//        return null;
+//    }
 
     /**
      * 有时候我们定义切面的时候，切面中需要使用到目标对象的某个参数，如何使切面能得到目标对象的参数呢？可以使用args来绑定。
